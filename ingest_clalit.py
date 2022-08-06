@@ -5,21 +5,21 @@ from datetime import datetime
 
 filename_template = 'PersonList*.csv'
 
-
 @click.command()
 @click.option('--dirname', required=True, type=str)
 @click.option('--outputfile', required=True, type=str)
 def ingest_files(**kwargs):
     output_file = kwargs['outputfile']
-    print(f'Reading database from file: [{output_file}]')
     previous_df = read_output_file_or_empty(output_file)
 
     dir_name = kwargs['dirname']
-    print(f'Reading files from directory: [{dir_name}]')
+    print(f'Reading files from directory: [ {dir_name} ]')
     dirpath = pathlib.Path(dir_name)
     files = list(dirpath.glob(filename_template))
     combined_df = process_files(previous_df, files)
+    print(f'Saving database to file: [{output_file}]')
     combined_df.to_csv(output_file, encoding='utf_8_sig')
+    print("Finished")
 
 
 def read_output_file_or_empty(filename):
@@ -27,9 +27,10 @@ def read_output_file_or_empty(filename):
         output_df = pd.read_csv(
             filename, header=0, index_col=0, encoding='utf_8_sig',
             error_bad_lines=None)
-        # output_df.loc[:, 'Time'] = pd.to_datetime(output_df['Time'])
+        print(f'Reading database from file: [ {filename} ]')
     except Exception as e:
         output_df = pd.DataFrame()
+        print(f'Creating new database in file: [ {filename} ]')
 
     return output_df
 
@@ -60,6 +61,7 @@ def read_regular_file_to_dataframe(file):
 def process_files(previous_df, filenames):
     dfs = [previous_df]
     for f in filenames:
+        print(f'  Ingesting file {f}')
         file_df = read_regular_file_to_dataframe(f)
         dfs.append(file_df)
     # Combine all to one dataframe
