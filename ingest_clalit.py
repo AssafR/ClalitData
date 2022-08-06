@@ -10,10 +10,12 @@ filename_template = 'PersonList*.csv'
 @click.option('--dirname', required=True, type=str)
 @click.option('--outputfile', required=True, type=str)
 def ingest_files(**kwargs):
-    dir_name = kwargs['dirname']
     output_file = kwargs['outputfile']
+    print(f'Reading database from file: [{output_file}]')
     previous_df = read_output_file_or_empty(output_file)
 
+    dir_name = kwargs['dirname']
+    print(f'Reading files from directory: [{dir_name}]')
     dirpath = pathlib.Path(dir_name)
     files = list(dirpath.glob(filename_template))
     combined_df = process_files(previous_df, files)
@@ -76,5 +78,4 @@ def process_files(previous_df, filenames):
 
 
 if __name__ == "__main__":
-    print('starting')
     ingest_files()
