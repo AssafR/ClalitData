@@ -1,12 +1,12 @@
 # ClalitData
-Python script to merge the output of **Clalit Health Services** test results exported to CSV on the website
+Python script to merge the output of many seperate **Clalit Health Services** test results which the user has exported to CSV on the website
 
 ## Motivation:
 In the *Clalit* website test-results view, it provides a button to export the results "to Excel" (actually CSV).
 
 However, there are several issues:
 * Each test report is saved separately
-* The file names are meaningless - the filename is always called *PersonList.csv* and if there are already files in the directory they will be automatically renamed to *PersonList (39).csv*, etc. 
+* The file names are meaningless - the filename is always called *PersonList.csv* and if there are already files in the download directory, they will be automatically renamed to *PersonList (39).csv*, etc. 
 * The results are only viewable/downloadable for about 2 years backwards, so to save your history you need to store it yourself
 
 ## What this program does:
