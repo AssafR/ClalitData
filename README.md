@@ -1,5 +1,5 @@
 # ClalitData
-Python script to merge the output of many seperate **Clalit Health Services** test results which the user has exported to CSV on the website
+Python script to merge the output of many seperate **Clalit Health Services** test results which the user has exported to CSV on the website, into one easy sorted CSV file.
 
 ## Motivation:
 In the *Clalit* website test-results view, it provides a button to export the results "to Excel" (actually CSV).
